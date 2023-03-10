@@ -13,4 +13,12 @@ for row in app_data_set:
     rating_sum = rating_sum + rating_count
     print(rating_sum)
 print(rating_sum)
-    
+
+
+
+# rating_sum = 0 this is the default value 
+#rating_sum = 0 + row[3.5] = 3.5
+#rating_sum = 3.5 + row[4.5] = 8
+#rating_sum = 8 + row[4.5] = 12.5
+#rating_sum = 12.5 + row[4.5] = 17
+#rating_sum = 17 + row[4.5] = 21.5
