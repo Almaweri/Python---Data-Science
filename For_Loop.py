@@ -9,12 +9,19 @@ app_data_set = [row_1, row_2, row_3, row_4, row_5]
 
 rating_sum = 0
 for row in app_data_set:
-    rating_count = row[-1] 
+    rating_count = row[3] 
     rating_sum = rating_sum + rating_count
     print(rating_sum)
 print(rating_sum)
 
+#  Instructions
+#  Calculate the total number of app ratings for the apps stored in the app_data_set variable.
 
+#  Initialize a variable named rating_sum with a value of zero outside the loop body.
+#  Loop (iterate) over the app_data_set list of lists. For each of the five iterations of the loop (for each row in app_data_set):
+#  Extract the rating count of the app, and store it to a variable named rating_count.
+#  Add the value stored in rating_count to the current value of rating_sum and assign the result back to rating_sum.
+#  Print rating_sum.
 
 # rating_sum = 0 this is the default value 
 #rating_sum = 0 + row[3.5] = 3.5
