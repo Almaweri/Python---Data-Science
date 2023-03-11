@@ -9,7 +9,7 @@ app_data_set = [row_1, row_2, row_3, row_4, row_5]
 
 rating_sum = 0
 for row in app_data_set:
-    rating = row[-1]
+    rating = row[3]
     rating_sum += rating
     print("print the rating:  " + str(rating_sum))
 
