@@ -11,6 +11,3 @@ read_file = reader(opened_file)
 #Transform the read-in file to a list using list() function 
 apps_data = list(read_file)
 
-print(len(apps_data))
-print(apps_data[0])
-print(apps_data[1:3])
