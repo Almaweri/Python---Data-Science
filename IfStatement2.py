@@ -14,3 +14,4 @@ avg_rating_free = sum(free_apps_ratings) / len(free_apps_ratings)
 print(avg_rating_free)
 
 
+#Example
