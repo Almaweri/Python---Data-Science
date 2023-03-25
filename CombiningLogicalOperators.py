@@ -3,11 +3,11 @@ from csv import reader
 read_file = reader(open_file)
 apps_data = list(read_file)
 
-n_of_apps = 0
+apps_4_or_greater = []
 
 for row in apps_data[1:]:
     rating = float(row[7])
     if rating >= 4.0:
-        n_of_apps = n_of_apps + 1
+        apps_4_or_greater.append(rating)
 
-print(n_of_apps)
+print(len(apps_4_or_greater))
