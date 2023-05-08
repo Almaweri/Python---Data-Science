@@ -1,3 +1,5 @@
+#This project is to extract the data from Excel file and play with the data
+
 import pandas as pd
 
 # Read data from the Excel file
