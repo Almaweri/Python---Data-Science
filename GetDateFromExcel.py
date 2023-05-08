@@ -6,7 +6,8 @@ import pandas as pd
 excelData = pd.read_excel('D:\Python\VOQ DATA.xlsx')
 
 # Convert the DataFrame to a list of lists
-new_data = excelData.values.tolist()
+new_data = excelData.values.tolist
+#excelData.to_excel("D:\Python\ToFile\magedDate.xlsx", index= False)
 
 # Initialize an empty list to store the processed data
 main_list_of_data = []
