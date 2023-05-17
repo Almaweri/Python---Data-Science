@@ -1,4 +1,4 @@
-#comment
+#comment this
 from csv import reader
 read_data = reader(data_path)
 app_data = list(read_data)
