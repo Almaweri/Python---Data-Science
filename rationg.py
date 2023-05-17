@@ -1,5 +1,4 @@
-data_path = open(r'C:\Users\t3281ma\Desktop\All DATA\1.1 Py\Python---Data-Science\AppleStore.csv', encoding='ISO-8859-1')
-
+#comment
 from csv import reader
 read_data = reader(data_path)
 app_data = list(read_data)
