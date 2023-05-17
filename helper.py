@@ -1,7 +1,11 @@
 import pandas as pd
 import re
 import matplotlib.pyplot as plt
+<<<<<<< HEAD
 from IPython.display import display, HTML
+=======
+from IPython.core.display import display, HTML
+>>>>>>> 7271ad2676e9b8b4e14d20f009402539d661d374
 
 def data_from_url(url):
     df = pd.read_html(url)[1]
@@ -59,6 +63,7 @@ def print_pretty_table(countries_frequency):
 
 df = pd.read_html("https://en.wikipedia.org/wiki/List_of_helicopter_prison_escapes")[1]
 df = df[["Date", "Prison name", "Country", "Succeeded", "Escapee(s)"]]
+<<<<<<< HEAD
 
 # Print the first 10 rows of the DataFrame
 print(df.head(10))
@@ -68,3 +73,5 @@ print(df.tail(5))
 
 # Print only the "Country" and "Succeeded" columns
 print(df[["Country", "Succeeded"]])
+=======
+>>>>>>> 7271ad2676e9b8b4e14d20f009402539d661d374
