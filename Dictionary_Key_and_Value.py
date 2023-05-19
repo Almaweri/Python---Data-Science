@@ -8,3 +8,13 @@ d_1 = {'key_1': 'value_1',
 print(d_1)
 print(d_1['key_1'])
 print(d_1['key_6'])
+
+#updating the first 3 keys with new values.
+
+d_1['key_1'] = 'Maged Almaweri'
+d_1['key_2'] = '05/18/2023'
+d_1['key_3'] = 'I can do it'
+
+print(d_1['key_1'])
+print(d_1['key_2'])
+print(d_1['key_3'])
