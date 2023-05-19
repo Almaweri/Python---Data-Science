@@ -28,3 +28,5 @@ print(type(d_3[False]))
 print(d_1)
 print(d_2)
 print(d_3)
+
+print(len(385))
