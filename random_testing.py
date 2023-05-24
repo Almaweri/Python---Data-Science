@@ -75,10 +75,5 @@ print(name.isupper())
 #print(name.ljust(30))  #
 
 
-
-
-
-
-
 count_fish = "one fish, tow fish, three fish, four fish, fishier man"
 print(count_fish.count('fish'))
