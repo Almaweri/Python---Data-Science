@@ -4,11 +4,11 @@ c_ratings_proportions = {}
 c_ratings_percentages = {}
 
 for key in content_ratings:
-    proportions = (content_ratings[key] / total_number_of_apps)
-    c_ratings_proportions[key] = proportions
+    proportions = (content_ratings[key] / total_number_of_apps) #Find Data, then
+    c_ratings_proportions[key] = proportions #Fill-up data
     
-    ercentages = proportions * 100
-    c_ratings_percentages[key] = ercentages
+    percentages = proportions * 100 # define, then
+    c_ratings_percentages[key] = percentages # fill-up
     
 print("proportions: ", c_ratings_proportions)
 print('Precentage: ', c_ratings_percentages)
