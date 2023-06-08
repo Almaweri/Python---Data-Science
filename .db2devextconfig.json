@@ -1,0 +1,24 @@
+{
+    "maged.sql": {
+        "execute": {
+            "connectionOptions": "UseExistingConnection",
+            "onSuccessOptions": "CommitOnEachStmt",
+            "onErrorOptions": "OnErrContinue",
+            "terminator": ";",
+            "currentSchema": "",
+            "currentPath": "",
+            "useUpperCaseOption": true
+        }
+    },
+    ".db2devextconfig.json": {
+        "execute": {
+            "connectionOptions": "UseExistingConnection",
+            "onSuccessOptions": "CommitOnEachStmt",
+            "onErrorOptions": "OnErrContinue",
+            "terminator": ";",
+            "currentSchema": "",
+            "currentPath": "",
+            "useUpperCaseOption": true
+        }
+    }
+}
