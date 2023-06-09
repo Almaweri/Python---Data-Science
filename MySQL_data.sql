@@ -84,3 +84,11 @@ JOIN accounts
     ON web_events.account_id = accounts.id
 JOIN orders
     ON accounts.id = orders.account_id;
+
+// ======================= LEFT and RIGHT JOINs
+
+SELECT a.id, a.name, o.total 
+From orders o
+LEFT JOIN accounts a
+ON o.account_id = a.id
+
