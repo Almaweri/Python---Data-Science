@@ -1,5 +1,5 @@
-##// INNER JOIN
-## ================ THINK about JOIN AS FROM ===================
+-- ##// INNER JOIN
+-- ## ================ THINK about JOIN AS FROM ===================
 
 SELECT sql_python.orders.*,
        orders.id, orders.account_id, orders.occurred_at, orders.standard_qty, orders.gloss_qty, orders.poster_qty, orders.total, orders.standard_amt_usd, orders.gloss_amt_usd, orders.poster_amt_usd, orders.total_amt_usd
@@ -19,33 +19,33 @@ FROM orders
 JOIN accounts
 ON orders.account_id = accounts.id;
 
-//Quiz Questions
+-- //Quiz Questions
 
-// 1- Try pulling all the data from the accounts table, and all the data from the orders table.
+-- // 1- Try pulling all the data from the accounts table, and all the data from the orders table.
 SELECT acc.*, ord.*
 FROM accounts as acc
 JOIN orders as ord
-ON acc.id =  ord.account_id
+ON acc.id =  ord.account_id;
 
 
-// 2- Try pulling standard_qty, gloss_qty, and poster_qty from the orders table, and the website and the primary_poc from the accounts table.
+-- // 2- Try pulling standard_qty, gloss_qty, and poster_qty from the orders table, and the website and the primary_poc from the accounts table.
 SELECT ord.standard_qty, ord.gloss_qty, ord.poster_qty,
        acc.website, acc.primary_poc
 FROM orders as ord
 JOIN accounts as acc
-ON ord.account_id = acc.id
+ON ord.account_id = acc.id;
 
 
-// ============= JOIN Revisited ===================
+-- // ============= JOIN Revisited ===================
 
-// Joining 3 tables
+-- // Joining 3 tables
 
 SELECT *
 FROM web_events
 JOIN accounts
 ON web_events.account_id = accounts.id
 JOIN orders
-ON accounts.id = orders.account_id
+ON accounts.id = orders.account_id;
 
 SELECT we.*, a.*, o.*
 FROM web_events AS we
@@ -85,10 +85,17 @@ JOIN accounts
 JOIN orders
     ON accounts.id = orders.account_id;
 
-// ======================= LEFT and RIGHT JOINs
+-- ======================= LEFT and RIGHT JOINs
 
 SELECT a.id, a.name, o.total 
 From orders o
 LEFT JOIN accounts a
-ON o.account_id = a.id
+ON o.account_id = a.id;
 
+-- // Where Clause with Inner Join
+SELECT o.*,
+      a.*
+FROM orders o
+JOIN accounts a
+ON o.account_id = a.id
+WHERE a.sales_rep_id = 321500
