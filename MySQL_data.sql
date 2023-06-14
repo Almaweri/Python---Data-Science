@@ -195,5 +195,30 @@ WHERE o.account_id = '1001';
 SELECT o.occurred_at, a.name, o.total, o.total_amt_usd
 FROM orders o
 JOIN accounts a ON a.id = o.account_id
-WHERE o.occurred_at BETWEEN '2015-10-01' AND '2015-12-31'
+WHERE o.occurred_at BETWEEN '2015-10-01' AND '2015-12-31';
 
+
+
+-- NULLs and Aggregation ====== \\ ===\\\ ===\\\\===\\\===\\\=\=\=\=\\\\
+-- When identifying NULLs in a WHERE clause, we write IS NULL or IS NOT NULL. We don't use =, 
+-- because NULL isn't consideed a value in SQL. Rather, it is a property of the data.
+
+Select *
+FROM sql_python.accounts
+WHERE primary_poc IS NOT Null;
+
+
+-- First Aggregation - COUNT
+SELECT COUNT(*) as order_count
+FROM sql_python.orders
+WHERE occurred_at >= '2016-12-01' AND occurred_at < '2017-01-01';
+
+select * from orders
+WHERE occurred_at >= '2016-12-01' AND occurred_at < '2017-01-01';
+
+SELECT COUNT(a.id)
+FROM accounts a;
+
+SELECT * 
+FROM accounts
+WHERE primary_poc IS NULL;
