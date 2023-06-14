@@ -253,4 +253,13 @@ SELECT SUM(o.standard_amt_usd) / SUM(o.standard_qty) as tandard_amt_usd_per_unit
 FROM orders o;
 
 
+-- MIN & MAX
+
+SELECT MIN(o.standard_qty) AS standard_min,
+       MIN(o.gloss_qty) AS gloss_min,
+       MIN(o.poster_qty) AS poster_min,
+       MAX(o.standard_qty) AS standard_max,
+       MAX(o.gloss_qty) AS gloss_max,
+       MAX(o.poster_qty) AS poster_max
+FROM orders o;
 
