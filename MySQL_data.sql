@@ -337,3 +337,10 @@ FROM web_events w
 JOIN accounts a on a.id = w.account_id
 ORDER BY w.occurred_at DESC
 limit 1;
+
+-- 4- Find the total number of times each type of channel from the web_events was used. Your final table should have two columns - the channel and the number of times the channel was used.
+SELECT  w.channel, COUNT(w.channel) as number_of_times_used
+FROM web_events w
+GROUP BY w.channel
+ORDER BY w.channel;
+
