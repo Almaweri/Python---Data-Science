@@ -344,3 +344,11 @@ FROM web_events w
 GROUP BY w.channel
 ORDER BY w.channel;
 
+-- 5- Who was the primary contact associated with the earliest web_event?
+
+SELECT a.primary_poc, MIN(w.occurred_at) as earliest_web_event
+FROM accounts a
+JOIN web_events w on a.id = w.account_id
+GROUP BY a.primary_poc
+order by earliest_web_event;
+
