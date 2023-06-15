@@ -352,3 +352,10 @@ JOIN web_events w on a.id = w.account_id
 GROUP BY a.primary_poc
 order by earliest_web_event;
 
+-- 6- What was the smallest order placed by each account in terms of total usd. Provide only two columns - the account name and the total usd. Order from smallest dollar amounts to largest.
+SELECT a.name, MIN(o.total_amt_usd) as total_amt_usd
+FROM accounts a
+JOIN orders o ON o.account_id = a.id
+GROUP BY a.name
+ORDER BY total_amt_usd ASC
+
