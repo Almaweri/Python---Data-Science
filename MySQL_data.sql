@@ -329,4 +329,4 @@ SELECT a.name, SUM(o.total_amt_usd) AS total_amount
 FROM orders o
 JOIN accounts a ON a.id = o.account_id
 GROUP BY a.name
-ORDER BY a.name
+ORDER BY a.name;
