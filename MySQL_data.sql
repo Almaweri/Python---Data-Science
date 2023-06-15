@@ -357,5 +357,12 @@ SELECT a.name, MIN(o.total_amt_usd) as total_amt_usd
 FROM accounts a
 JOIN orders o ON o.account_id = a.id
 GROUP BY a.name
-ORDER BY total_amt_usd ASC
+ORDER BY total_amt_usd ASC;
+
+-- 7- Find the number of sales reps in each region. Your final table should have two columns - the region and the number of sales_reps. Order from the fewest reps to most reps.
+SELECT COUNT(s.id) as sales_reps_num, r.name AS region_name
+FROM sales_reps s 
+JOIN region r on r.id = s.region_id 
+GROUP BY r.name
+ORDER by sales_reps_num asc;
 
