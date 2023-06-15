@@ -334,6 +334,6 @@ ORDER BY a.name;
 --  3- Via what channel did the most recent (latest) web_event occur, which account was associated with this web_event? Your query should return only three values - the date, channel, and account name.
 SELECT w.channel, w.occurred_at, a.name
 FROM web_events w
-JOIN accounts o on a.id = w.account_id
+JOIN accounts a on a.id = w.account_id
 ORDER BY w.occurred_at DESC
 limit 1;
