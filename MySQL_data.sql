@@ -374,7 +374,7 @@ SELECT  w.account_id,
         COUNT(id) AS events
 FROM web_events w
 GROUP BY w.account_id, w.channel
-ORDER BY w.account_id, w.channel
+ORDER BY w.account_id, w.channel;
 
 --You can GROUP BY multiple columns at once, as we showed here. This is often useful to aggregate across a number of different segments.
 
@@ -392,6 +392,17 @@ SELECT a.name as account_name,
        AVG(o.standard_qty) as standard,
        AVG(o.gloss_qty) as gloss,
        AVG(o.poster_qty) as poster
+FROM accounts a
+JOIN orders o on a.id = o.account_id
+GROUP BY a.name
+ORDER BY a.name;
+
+-- 2- For each account, determine the average amount spent per order on each paper type. Your result should have four columns - one for the account name and one for the average amount spent on each paper type.
+
+SELECT a.name as account_name,
+       AVG(o.standard_amt_usd) as standard_amt,
+       AVG(o.gloss_amt_usd) as gloss_amt,
+       AVG(o.poster_amt_usd) as poster_amt
 FROM accounts a
 JOIN orders o on a.id = o.account_id
 GROUP BY a.name
