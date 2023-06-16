@@ -406,4 +406,4 @@ SELECT a.name as account_name,
 FROM accounts a
 JOIN orders o on a.id = o.account_id
 GROUP BY a.name
-ORDER BY a.name
+ORDER BY a.name;
