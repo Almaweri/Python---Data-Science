@@ -366,3 +366,22 @@ JOIN region r on r.id = s.region_id
 GROUP BY r.name
 ORDER by sales_reps_num asc;
 
+
+-- GROUP BY Part II
+
+SELECT  w.account_id,
+        w.channel,
+        COUNT(id) AS events
+FROM web_events w
+GROUP BY w.account_id, w.channel
+ORDER BY w.account_id, w.channel
+
+--You can GROUP BY multiple columns at once, as we showed here. This is often useful to aggregate across a number of different segments.
+
+-- The order of columns listed in the ORDER BY clause does make a difference. You are ordering the columns from left to right.
+
+-- The order of column names in your GROUP BY clause doesn’t matter—the results will be the same regardless. If we run the same query and reverse the order in the GROUP BY clause, you can see we get the same results.
+
+-- As with ORDER BY, you can substitute numbers for column names in the GROUP BY clause. It’s generally recommended to do this only when you’re grouping many columns, or if something else is causing the text in the GROUP BY clause to be excessively long.
+
+-- A reminder here that any column that is not within an aggregation must show up in your GROUP BY statement. If you forget, you will likely get an error. However, in the off chance that your query does work, you might not like the results!
