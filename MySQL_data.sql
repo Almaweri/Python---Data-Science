@@ -385,3 +385,14 @@ ORDER BY w.account_id, w.channel
 -- As with ORDER BY, you can substitute numbers for column names in the GROUP BY clause. It’s generally recommended to do this only when you’re grouping many columns, or if something else is causing the text in the GROUP BY clause to be excessively long.
 
 -- A reminder here that any column that is not within an aggregation must show up in your GROUP BY statement. If you forget, you will likely get an error. However, in the off chance that your query does work, you might not like the results!
+
+
+-- 1- For each account, determine the average amount of each type of paper they purchased across their orders. Your result should have four columns - one for the account name and one for the average quantity purchased for each of the paper types for each account.
+SELECT a.name as account_name,
+       AVG(o.standard_qty) as standard,
+       AVG(o.gloss_qty) as gloss,
+       AVG(o.poster_qty) as poster
+FROM accounts a
+JOIN orders o on a.id = o.account_id
+GROUP BY a.name
+ORDER BY a.name
