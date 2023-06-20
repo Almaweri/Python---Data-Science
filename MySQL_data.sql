@@ -419,3 +419,14 @@ GROUP by w.channel, s.name
 order by channel;
 
 
+
+-- 4- Determine the number of times a particular channel was used in the web_events table for each region. Your final table should have three columns - the region name, the channel, and the number of occurrences. Order your table with the highest number of occurrences first.
+
+
+SELECT r.name as region_name, w.channel as channel_name, count(w.channel) as times_used
+FROM web_events w
+JOIN accounts a on a.id = w.account_id
+JOIN sales_reps s on s.id = a.sales_rep_id
+JOIN region r on r.id = s.region_id
+GROUP by w.channel, r.name
+order by times_used DESC;
