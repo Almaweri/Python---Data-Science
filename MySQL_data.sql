@@ -439,3 +439,21 @@ JOIN sales_reps s on s.id = a.sales_rep_id
 JOIN region r on r.id = s.region_id
 GROUP by w.channel, r.name
 order by times_used DESC;
+
+
+-- Distinct
+SELECT w.account_id, w.channel, COUNT(id) as events
+FROM web_events w
+GROUP by w.account_id, w.channel
+ORDER BY w.account_id, w.channel DESC;
+
+-- same as below 
+SELECT account_id, channel
+FROM web_events
+GROUP by account_id, channel
+ORDER by account_id;
+
+-- same as 
+SELECT DISTINCT account_id, channel
+FROM web_events
+ORDER BY account_id;
