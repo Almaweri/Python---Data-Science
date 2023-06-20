@@ -407,3 +407,15 @@ FROM accounts a
 JOIN orders o on a.id = o.account_id
 GROUP BY a.name
 ORDER BY a.name;
+
+
+-- 3- Determine the number of times a particular channel was used in the web_events table for each sales rep. Your final table should have three columns - the name of the sales rep, the channel, and the number of occurrences. Order your table with the highest number of occurrences first.
+
+SELECT w.channel as channel_name, count(w.channel) as times_used, s.name
+FROM web_events w
+JOIN accounts a on a.id = w.account_id
+JOIN sales_reps s on s.id = a.sales_rep_id
+GROUP by w.channel, s.name
+order by channel;
+
+
