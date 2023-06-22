@@ -457,3 +457,21 @@ ORDER by account_id;
 SELECT DISTINCT account_id, channel
 FROM web_events
 ORDER BY account_id;
+
+-- HAVING CLAUSE
+
+SELECT o.account_id, sum(o.total_amt_usd) as sum_total_amt_usd
+FROM orders o
+Group by 1
+HAVING sum(o.total_amt_usd) >= 250000 AND sum(o.total_amt_usd) <= 255000
+
+-- Quiz: HAVING
+
+SELECT * FROM sql_python.web_events
+SELECT * FROM sql_python.accounts
+
+SELECT s.id, s.name, COUNT(a.id) as num_accounts
+FROM sql_python.sales_reps s 
+JOIN sql_python.accounts a on a.sales_rep_id = S.id
+GROUP by s.id, s.name
+HAVING num_accounts >= 5
