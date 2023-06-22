@@ -489,4 +489,12 @@ SELECT a.id, a.name, COUNT(o.account_id) total_orders
 FROM accounts a
 JOIN orders o on a.id = o.account_id
 GROUP by a.id, a.name
-HAVING COUNT(o.account_id) > 2;
+HAVING COUNT(o.account_id) > 20;
+
+-- 3- Which account has the most orders?
+SELECT a.id, a.name, COUNT(o.account_id) total_orders
+FROM accounts a
+JOIN orders o on a.id = o.account_id
+GROUP by a.id, a.name
+Order by COUNT(o.account_id) DESC
+LIMIT 1;
