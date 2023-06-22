@@ -470,8 +470,23 @@ HAVING sum(o.total_amt_usd) >= 250000 AND sum(o.total_amt_usd) <= 255000
 SELECT * FROM sql_python.web_events
 SELECT * FROM sql_python.accounts
 
+-- 1- How many of the sales reps have more than 5 accounts that they manage?
+
 SELECT s.id, s.name, COUNT(a.id) as num_accounts
 FROM sql_python.sales_reps s 
 JOIN sql_python.accounts a on a.sales_rep_id = S.id
 GROUP by s.id, s.name
-HAVING num_accounts >= 5
+HAVING num_accounts >= 5;
+
+SELECT s.id, s.name, COUNT(a.id) as num_accounts
+FROM sql_python.sales_reps s 
+JOIN sql_python.accounts a on a.sales_rep_id = S.id
+GROUP by s.id, s.name
+HAVING num_accounts >= 5;
+
+-- 2- How many accounts have more than 20 orders?
+SELECT a.id, a.name, COUNT(o.account_id) total_orders
+FROM accounts a
+JOIN orders o on a.id = o.account_id
+GROUP by a.id, a.name
+HAVING COUNT(o.account_id) > 2;
