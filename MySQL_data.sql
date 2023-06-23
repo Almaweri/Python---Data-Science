@@ -541,3 +541,21 @@ GROUP BY a.id, a.name
 ORDER BY total_spent
 LIMIT 1;
 
+
+-- 8- Which accounts used facebook as a channel to contact customers more than 6 times?
+SELECT a.id, a.name, w.channel, count(*) use_of_channel
+FROM accounts a
+Join web_events w on a.id = w.account_id
+GROUP by a.id, a.name, w.channel
+HAVING use_of_channel > 6 AND w.channel = "facebook"
+order by use_of_channel
+
+--  Solution 2
+SELECT a.id, a.name, w.channel, COUNT(*) AS use_of_channel
+FROM accounts a
+JOIN web_events w ON a.id = w.account_id
+WHERE w.channel = 'facebook'
+GROUP BY a.id, a.name, w.channel
+HAVING COUNT(*) > 6
+ORDER BY use_of_channel;
+
