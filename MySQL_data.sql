@@ -498,3 +498,25 @@ JOIN orders o on a.id = o.account_id
 GROUP by a.id, a.name
 Order by COUNT(o.account_id) DESC
 LIMIT 1;
+
+
+-- 4- Which accounts spent more than 30,000 usd total across all orders?
+SELECT a.id, a.name, SUM(o.total_amt_usd) total_spent
+FROM accounts a
+JOIN orders o
+ON a.id = o.account_id
+GROUP BY a.id, a.name
+HAVING SUM(o.total_amt_usd) > 30000
+ORDER BY total_spent;
+
+
+-- 5- Which accounts spent less than 1,000 usd total across all orders?
+SELECT a.id, a.name, SUM(o.total_amt_usd) total_spent
+FROM accounts a
+JOIN orders o
+ON a.id = o.account_id
+GROUP BY a.id, a.name
+HAVING SUM(o.total_amt_usd) < 1000
+ORDER BY total_spent;
+
+
