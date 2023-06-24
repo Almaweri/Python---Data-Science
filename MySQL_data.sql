@@ -578,3 +578,41 @@ ORDER BY use_of_channel DESC
 limit 10;
 
 
+-- DATE Functions
+
+SELECT occurred_at, SUM(standard_qty) as "Standard Quantity SUM"
+FROM orders
+GROUP BY orders.occurred_at
+Order by orders.occurred_at
+
+SELECT o.occurred_at,
+        DATE_FORMAT('%d', o.occurred_at) AS day, DATE_FORMAT('%i', o.occurred_at) AS minutes
+FROM orders o;
+
+SELECT DATE_PART('dow',occurred_at) AS day_of_week,
+       account_id,
+       occurred_at,
+       total
+FROM orders;
+
+SELECT
+    DAYOFWEEK(occurred_at) AS day_of_week,
+    account_id,
+    occurred_at,
+    total
+FROM
+    orders;
+
+
+SELECT
+    o.occurred_at,
+    DATE_FORMAT(o.occurred_at, '%d') AS day,
+    DATE_FORMAT(o.occurred_at, '%i') AS minutes
+FROM
+    orders o;
+
+SELECT standard_qty, COUNT(*)
+FROM orders
+GROUP BY 1
+ORDER BY 1
+
