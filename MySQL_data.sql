@@ -583,7 +583,7 @@ limit 10;
 SELECT occurred_at, SUM(standard_qty) as "Standard Quantity SUM"
 FROM orders
 GROUP BY orders.occurred_at
-Order by orders.occurred_at
+Order by orders.occurred_at;
 
 SELECT o.occurred_at,
         DATE_FORMAT('%d', o.occurred_at) AS day, DATE_FORMAT('%i', o.occurred_at) AS minutes
@@ -614,5 +614,7 @@ FROM
 SELECT standard_qty, COUNT(*)
 FROM orders
 GROUP BY 1
-ORDER BY 1
+ORDER BY 1;
+
+-- The 1 in both the GROUP BY and ORDER BY statements refer to standard_qty since it is the first of the columns included in the select statement.
 
