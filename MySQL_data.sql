@@ -618,3 +618,14 @@ ORDER BY 1;
 
 -- The 1 in both the GROUP BY and ORDER BY statements refer to standard_qty since it is the first of the columns included in the select statement.
 
+SELECT DATE_PART('dow',occurred_at) AS day_of_week,
+       account_id,
+       occurred_at,
+       total
+FROM orders;
+
+SELECT DATE_PART('dow',occurred_at) AS day_of_week,
+       SUM(total) AS total_qty
+FROM orders
+GROUP BY 1
+ORDER BY 2
