@@ -628,4 +628,9 @@ SELECT DATE_PART('dow',occurred_at) AS day_of_week,
        SUM(total) AS total_qty
 FROM orders
 GROUP BY 1
-ORDER BY 2
+ORDER BY 2;
+
+-- DAYOFWEEK in MYSQL
+
+SELECT DAYOFWEEK(o.occurred_at) as day_of_week, o.account_id, o.occurred_at, o.total
+FROM orders o;
