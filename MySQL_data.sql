@@ -632,5 +632,10 @@ ORDER BY 2;
 
 -- DAYOFWEEK in MYSQL
 
-SELECT DAYOFWEEK(o.occurred_at) as day_of_week, o.account_id, o.occurred_at, o.total
-FROM orders o;
+SELECT
+    DAYOFWEEK(occurred_at) AS day_of_week,
+    account_id,
+    occurred_at,
+    total
+FROM
+    orders;
