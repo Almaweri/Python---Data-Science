@@ -698,4 +698,15 @@ Order by total_sale DESC;
 SELECT COUNT(o.id) as total_orders, DATE_FORMAT(o.occurred_at, '%M') as Month
 FROM orders o
 GROUP by DATE_FORMAT(o.occurred_at, '%M')
-order by total_orders DESC
+order by total_orders DESC;
+
+
+-- 5- In which month of which year did Walmart spend the most on gloss paper in terms of dollars?
+SELECT SUM(o.gloss_amt_usd) as gloss_spent, DATE_FORMAT(o.occurred_at, '%M') as month, DATE_FORMAT(o.occurred_at, '%Y') as year
+FROM orders o
+JOIN accounts a on a.id = o.account_id
+Where a.name = 'Walmart'
+GROUP by DATE_FORMAT(o.occurred_at, '%M'), DATE_FORMAT(o.occurred_at, '%Y')
+order by gloss_spent DESC
+limit 1
+
