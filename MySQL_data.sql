@@ -681,8 +681,15 @@ ORDER BY total_sale DESC;
 
 -- using month 
 select o.occurred_at, month(o.occurred_at) as month
-from orders o
+from orders o;
 
 -- unsing DATE_TRUNC
 SELECT DATE_TRUNC(occurred_at, 'MONTH') AS month
 FROM orders;
+
+
+-- 3- Which year did Parch & Posey have the greatest sales in terms of the total number of orders? Are all years evenly represented by the dataset?
+SELECT SUM(o.total_amt_usd) as total_sale, DATE_FORMAT(o.occurred_at, '%Y') as Year
+FROM orders o
+GROUP BY DATE_FORMAT(o.occurred_at, '%Y')
+Order by total_sale DESC;
