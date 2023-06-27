@@ -665,3 +665,24 @@ SELECT SUM(o.total_amt_usd) AS total_sale, DATE_PART('year', o.occurred_at) AS y
 FROM orders o
 GROUP BY DATE_PART('year', o.occurred_at)
 ORDER BY total_sale DESC;
+
+
+-- 2- Which month did Parch & Posey have the greatest sales in terms of total dollars? Are all months evenly represented by the dataset?
+SELECT o.account_id, SUM(o.total_amt_usd) as total_sale, DATE_FORMAT(o.occurred_at, '%M') as month
+FROM orders o
+group by DATE_FORMAT(o.occurred_at, '%M'),  o.account_id
+order by total_sale DESC;
+
+SELECT o.account_id, SUM(o.total_amt_usd) AS total_sale, DATE_FORMAT(o.occurred_at, '%M') AS month
+FROM orders o
+WHERE o.account_id = 'Parch & Posey' -- Filter for Parch & Posey account only
+GROUP BY DATE_FORMAT(o.occurred_at, '%M')
+ORDER BY total_sale DESC;
+
+-- using month 
+select o.occurred_at, month(o.occurred_at) as month
+from orders o
+
+-- unsing DATE_TRUNC
+SELECT DATE_TRUNC(occurred_at, 'MONTH') AS month
+FROM orders;
