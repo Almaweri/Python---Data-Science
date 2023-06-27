@@ -693,3 +693,9 @@ SELECT SUM(o.total_amt_usd) as total_sale, DATE_FORMAT(o.occurred_at, '%Y') as Y
 FROM orders o
 GROUP BY DATE_FORMAT(o.occurred_at, '%Y')
 Order by total_sale DESC;
+
+-- 4- Which month did Parch & Posey have the greatest sales in terms of the total number of orders? Are all months evenly represented by the dataset?
+SELECT COUNT(o.id) as total_orders, DATE_FORMAT(o.occurred_at, '%M') as Month
+FROM orders o
+GROUP by DATE_FORMAT(o.occurred_at, '%M')
+order by total_orders DESC
