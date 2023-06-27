@@ -650,3 +650,18 @@ ORDER BY 2;
 
 SELECT DAYOFWEEK(o.occurred_at) as day_of_week, o.account_id, o.occurred_at, o.total
 FROM orders o;
+
+-- Quiz: DATE Functions
+
+-- 1- Find the sales in terms of total dollars for all orders in each year, ordered from greatest to least. Do you notice any trends in the yearly sales totals?
+-- USING DATE_FOTMAT
+SELECT SUM(o.total_amt_usd) total_sale, DATE_FORMAT(o.occurred_at, '%Y') as years
+FROM orders o
+group by DATE_FORMAT(o.occurred_at, '%Y')
+order by total_sale DESC;
+
+-- USING DATE_PART
+SELECT SUM(o.total_amt_usd) AS total_sale, DATE_PART('year', o.occurred_at) AS years
+FROM orders o
+GROUP BY DATE_PART('year', o.occurred_at)
+ORDER BY total_sale DESC;
