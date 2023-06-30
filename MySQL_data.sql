@@ -752,4 +752,21 @@ CASE WHEN o.total > 500 THEN 'Over 500'
 From orders o;
 
 
+-- QUIZ CASE 
+
+-- 1- Write a query to display for each order, the account ID, the total amount of the order, 
+-- and the level of the order - ‘Large’ or ’Small’ - depending on if the order is $3000 or more, 
+-- or smaller than $3000.
+
+SELECT o.account_id, o.total_amt_usd, 
+        CASE
+         WHEN o.total_amt_usd >= 3000 THEN 'Large' 
+         WHEN o.total_amt_usd < 3000 THEN 'Small' 
+          END AS order_level
+        
+FROM orders o 
+GROUP by 1,2;
+
+
+
 
