@@ -739,5 +739,17 @@ CASE WHEN o.total > 500 THEN 'Over 500'
 
 From orders o;
 
+-- combining the CASE statements with aggregation 
+
+SELECT o.id, o.occurred_at, o.total,
+
+CASE WHEN o.total > 500 THEN 'Over 500'
+     WHEN o.total > 300 AND total <= 500 THEN '301 - 500'
+     WHEN o.total > 100 AND total <= 300 THEN '101 - 300'
+     
+     ELSE '100 or under' END AS total_group 
+
+From orders o;
+
 
 
