@@ -727,4 +727,17 @@ SELECT w.id, w.account_id, w.channel,
 FROM web_events w
 ORDER BY w.occurred_at;
 
+-- another case example
+
+SELECT o.id, o.occurred_at, o.total,
+
+CASE WHEN o.total > 500 THEN 'Over 500'
+     WHEN o.total > 300 THEN '301 - 500'
+     WHEN o.total > 100 THEN '101 - 300'
+     
+     ELSE '100 or under' END AS total_group 
+
+From orders o;
+
+
 
