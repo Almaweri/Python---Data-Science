@@ -720,3 +720,11 @@ SELECT w.id,
 FROM web_events w
 ORDER BY w.occurred_at;
 
+-- using or 
+SELECT w.id, w.account_id, w.channel,
+        CASE WHEN w.channel = 'facebook' OR w.channel = 'direct' THEN 'Yes' ELSE 'No' END AS is_facebook
+
+FROM web_events w
+ORDER BY w.occurred_at;
+
+
