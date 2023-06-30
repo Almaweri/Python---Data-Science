@@ -708,5 +708,15 @@ JOIN accounts a on a.id = o.account_id
 Where a.name = 'Walmart'
 GROUP by DATE_FORMAT(o.occurred_at, '%M'), DATE_FORMAT(o.occurred_at, '%Y')
 order by gloss_spent DESC
-limit 1
+limit 1;
+
+-- CASE Statements
+SELECT w.id,
+       w.account_id,
+       w.occurred_at,
+       w.channel,
+   CASE WHEN w.channel = 'facebook' THEN 'Yes' ELSE 'No' END AS is_facebook
+
+FROM web_events w
+ORDER BY w.occurred_at;
 
