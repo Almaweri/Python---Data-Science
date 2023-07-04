@@ -843,3 +843,22 @@ GROUP BY s.name
 HAVING COUNT(o.total) > 200
 ORDER BY total_orders DESC;
 
+-- 6- The previous didn't account for the middle, nor the dollar amount associated with the sales. 
+-- Management decides they want to see these characteristics represented as well. 
+-- We would like to identify top-performing sales reps, which are sales reps associated with more than 200 orders or more than 750000 in total sales.
+-- The middle group has any rep with more than 150 orders or 500000 in sales. Create a table with the sales rep name,
+-- the total number of orders, total sales across all orders, and a column with top, middle, or low depending on these criteria. 
+-- Place the top salespeople based on the dollar amount of sales first in your final table. 
+-- You might see a few upset salespeople by this criteria!
+
+SELECT s.name, count(o.total) as total_orders, SUM(o.total_amt_usd) as total_spent,
+        CASE
+            WHEN count(o.total) >= 200 OR SUM(o.total_amt_usd) > 750000 THEN 'Top'
+            WHEN count(o.total) < 200 AND count(o.total) >= 150 AND SUM(o.total_amt_usd) > 150000 THEN 'middle'
+            ELSE 'low' END AS performing_level
+FROM sales_reps s
+JOIN accounts a on a.sales_rep_id = s.id
+JOIN orders o on o.account_id = a.id
+GROUP BY 1
+ORDER BY total_spent DESC;
+
