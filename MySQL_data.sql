@@ -803,4 +803,16 @@ JOIN accounts a on a.id = o.account_id
 ORDER BY total_amount DESC;
 
 
+SELECT a.name as account_name, SUM(o.total_amt_usd) as total_amount, o.occurred_at,
+        CASE
+        WHEN SUM(o.total_amt_usd) > 200000 THEN  'greater than 200,000 - Level 1'
+        WHEN SUM(o.total_amt_usd) <= 200000 AND SUM(o.total_amt_usd) >= 100000 THEN  'Between 200k and 100k - Level 2'
+        WHEN SUM(o.total_amt_usd) < 100000 AND SUM(o.total_amt_usd) >= 0 THEN  'less than 100k - Level 3'
+        ELSE 'none'
+        END as Levels
+FROM orders o
+JOIN accounts a on a.id = o.account_id
+WHERE o.occurred_at BETWEEN '2016-01-01' AND '2017-12-31'
+GROUP BY account_name, o.occurred_at
+ORDER BY total_amount DESC;
 
