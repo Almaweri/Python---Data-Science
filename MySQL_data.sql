@@ -816,3 +816,30 @@ WHERE o.occurred_at BETWEEN '2016-01-01' AND '2017-12-31'
 GROUP BY account_name, o.occurred_at
 ORDER BY total_amount DESC;
 
+-- 5- We would like to identify top-performing sales reps, which are sales reps associated with more than 200 orders. 
+-- Create a table with the sales rep name, the total number of orders, and a column with top or not depending on if they have more than 200 orders. 
+-- Place the top salespeople first in your final table.
+
+SELECT s.name, count(o.total) as total_orders,
+        CASE
+            WHEN count(o.total) > 200 THEN 'Top'
+            ELSE 'Not' END AS performing_level
+FROM sales_reps s
+JOIN accounts a on a.sales_rep_id = s.id
+JOIN orders o on o.account_id = a.id
+GROUP BY 1
+ORDER BY total_orders DESC;
+
+-- WITH Having to get only orders over 200 
+SELECT s.name, COUNT(o.total) AS total_orders,
+  CASE
+    WHEN COUNT(o.total) > 200 THEN 'Top'
+    ELSE 'Not'
+  END AS performing_level
+FROM sales_reps s
+JOIN accounts a ON a.sales_rep_id = s.id
+JOIN orders o ON o.account_id = a.id
+GROUP BY s.name
+HAVING COUNT(o.total) > 200
+ORDER BY total_orders DESC;
+
