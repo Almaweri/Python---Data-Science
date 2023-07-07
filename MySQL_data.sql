@@ -862,3 +862,14 @@ JOIN orders o on o.account_id = a.id
 GROUP BY 1
 ORDER BY total_spent DESC;
 
+ -- Sub Query
+SELECT channel,
+       AVG(event_count) as avg_event_count
+FROM
+(SELECT DATE(w.occurred_at) AS day, w.channel,
+      COUNT(*) as event_count
+FROM web_events w
+GROUP BY 1, 2
+) sub
+GROUP BY 1
+ORDER BY 1;
