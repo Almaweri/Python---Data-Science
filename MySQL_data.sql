@@ -873,3 +873,21 @@ GROUP BY 1, 2
 ) sub
 GROUP BY 1
 ORDER BY 1;
+
+-- The average amount of standard paper sold on the first month that any order was placed in the orders table (in terms of quantity).
+
+-- Get the year first, then the month 
+SELECT AVG(standard_qty) AS avg_std, AVG(gloss_qty) AS avg_gls, AVG(poster_qty) AS avg_pst
+FROM orders o
+WHERE YEAR(o.occurred_at) = (
+  SELECT MIN(YEAR(occurred_at))
+  FROM orders
+)
+AND MONTH(o.occurred_at) = (
+  SELECT MIN(MONTH(occurred_at))
+  FROM orders
+  WHERE YEAR(occurred_at) = (
+    SELECT MIN(YEAR(occurred_at))
+    FROM orders
+  )
+);
