@@ -891,3 +891,13 @@ AND MONTH(o.occurred_at) = (
     FROM orders
   )
 );
+
+
+-- The total amount spent on all orders on the first month that any order was placed in the orders table (in terms of usd).
+
+
+
+SELECT SUM(total_amt_usd)
+FROM orders
+WHERE DATE_TRUNC('month', occurred_at) = 
+      (SELECT DATE_TRUNC('month', MIN(occurred_at)) FROM orders);
