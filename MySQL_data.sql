@@ -877,20 +877,25 @@ ORDER BY 1;
 -- The average amount of standard paper sold on the first month that any order was placed in the orders table (in terms of quantity).
 
 -- Get the year first, then the month 
-SELECT AVG(standard_qty) AS avg_std, AVG(gloss_qty) AS avg_gls, AVG(poster_qty) AS avg_pst
-FROM orders o
-WHERE YEAR(o.occurred_at) = (
-  SELECT MIN(YEAR(occurred_at))
-  FROM orders
-)
-AND MONTH(o.occurred_at) = (
-  SELECT MIN(MONTH(occurred_at))
-  FROM orders
-  WHERE YEAR(occurred_at) = (
-    SELECT MIN(YEAR(occurred_at))
-    FROM orders
+Simple Subquery
+WITH dept_average AS 
+  (SELECT dept, AVG(salary) AS avg_dept_salary
+   FROM employee
+   GROUP BY employee.dept
   )
-);
+SELECT E.eid, E.ename, D.avg_dept_salary
+FROM employee E
+JOIN dept.average D
+ON E.dept = D.dept
+WHERE E.salary > D.avg_dept_salary;
+Correlated Subquery
+SELECT employee_id,
+  name
+FROM employees_db emp
+WHERE salary > 
+  (SELECT AVG(salary)
+   FROM employees_db
+   WHERE department = emp.department);
 
 
 -- The total amount spent on all orders on the first month that any order was placed in the orders table (in terms of usd).
@@ -901,3 +906,25 @@ SELECT SUM(total_amt_usd)
 FROM orders
 WHERE DATE_TRUNC('month', occurred_at) = 
       (SELECT DATE_TRUNC('month', MIN(occurred_at)) FROM orders);
+
+-- Simple Subquery
+WITH dept_average AS 
+  (SELECT dept, AVG(salary) AS avg_dept_salary
+   FROM employee
+   GROUP BY employee.dept
+  )
+SELECT E.eid, E.ename, D.avg_dept_salary
+FROM employee E
+JOIN dept.average D
+ON E.dept = D.dept
+WHERE E.salary > D.avg_dept_salary;
+
+-- Correlated Subquery
+
+SELECT employee_id,
+  name
+FROM employees_db emp
+WHERE salary > 
+  (SELECT AVG(salary)
+   FROM employees_db
+   WHERE department = emp.department);
