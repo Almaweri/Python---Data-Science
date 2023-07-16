@@ -928,3 +928,16 @@ WHERE salary >
   (SELECT AVG(salary)
    FROM employees_db
    WHERE department = emp.department);
+
+
+   
+---- SQL VIEWS
+-- creatng the first VIEW from the sales_reps and region tables
+CREATE VIEW V1
+AS
+SELECT s.id, s.name as rep_name, r.name as region
+FROM sales_reps s
+JOIN region r
+ON s.region_id = r.id
+AND r.name = 'Northeast';
+
