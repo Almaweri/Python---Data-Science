@@ -941,3 +941,29 @@ JOIN region r
 ON s.region_id = r.id
 AND r.name = 'Northeast';
 
+CREATE VIEW V2
+AS 
+SELECT r.name as region_name, a.name as account_name, (o.total_amt_usd / o.total) as unit_price
+FROM accounts a
+JOIN sales_reps s on a.sales_rep_id = s.id
+JOIN region r on s.region_id = r.id
+JOIN orders o on a.id = o.account_id;
+
+
+SELECT * FROM V2;
+
+-----------
+SELECT r.name region, a.name account, 
+       o.total_amt_usd/(o.total + 0.01) unit_price
+FROM region r
+JOIN sales_reps s
+ON s.region_id = r.id
+JOIN accounts a
+ON a.sales_rep_id = s.id
+JOIN orders o
+ON o.account_id = a.id;
+
+
+
+select max(total_amt_usd)
+from V2;
