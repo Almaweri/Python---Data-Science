@@ -967,3 +967,20 @@ ON o.account_id = a.id;
 
 select max(total_amt_usd)
 from V2;
+
+-- CREATE VIEW 3
+
+CREATE VIEW V3
+AS
+SELECT COUNT(w.id) as id_counts, AVG(w.occurred_at) as avg_da, w.channel as channel_tr
+FROM web_events w
+GROUP BY channel_tr
+order by id_counts DESC;
+
+
+SELECT channel, AVG(events) AS average_events
+FROM (SELECT DATE_TRUNC('day',occurred_at) AS day,
+                channel, COUNT(*) as events
+         FROM web_events 
+         GROUP BY 1,2) sub
+GROUP BY channel;
