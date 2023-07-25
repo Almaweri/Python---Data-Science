@@ -984,3 +984,12 @@ FROM (SELECT DATE_TRUNC('day',occurred_at) AS day,
          FROM web_events 
          GROUP BY 1,2) sub
 GROUP BY channel;
+
+-- What is the top channel used by each account to market products?
+SELECT a.id as acc_id, w.channel as channel, 
+       (SELECT COUNT(wb.occurred_at)
+        FROM web_events wb
+        WHERE wb.account_id = a.id AND wb.channel = w.channel) as web_acc 
+FROM web_events w
+JOIN accounts a on a.id = w.account_id 
+GROUP BY channel, acc_id;
