@@ -1013,3 +1013,22 @@ JOIN (SELECT t1.id, t1.name, MAX(ct) max_chan
       GROUP BY t1.id, t1.name) t2
 ON t2.id = t3.id AND t2.max_chan = t3.ct
 ORDER BY t3.id, t3.ct;
+
+-- Another way to solve it and get the same results 
+
+SELECT t2.Region_Name, t2.Sales_Reps_Name, MAX(t1.total_amt_usd) AS largest_amt
+FROM (SELECT ac.sales_rep_id AS sales_rep_id, SUM(o.total_amt_usd) AS total_amt_usd
+      FROM accounts ac
+      JOIN orders o ON ac.id = o.account_id
+      GROUP BY ac.sales_rep_id
+) t1
+
+JOIN (SELECT r.name AS Region_Name, s.name AS Sales_Reps_Name, s.id AS sales_rep_id
+      FROM sales_reps s
+      JOIN region r ON s.region_id = r.id
+) t2
+
+ON t1.sales_rep_id = t2.sales_rep_id
+
+GROUP BY t2.Region_Name, t2.Sales_Reps_Name
+ORDER BY largest_amt DESC;
