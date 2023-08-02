@@ -1056,3 +1056,29 @@ JOIN (
         GROUP BY 1,2
         ORDER BY 3 DESC) t3 
 ON  t3.region_name = t2.region_name AND t3.total_amt = t2.total_amt;
+
+
+
+
+WITH SalesData AS (
+    SELECT
+        s.name AS sales_rep_name,
+        r.name AS region_name,
+        SUM(o.total_amt_usd) AS total_amt,
+        ROW_NUMBER() OVER (PARTITION BY r.name ORDER BY SUM(o.total_amt_usd) DESC) AS channel_rank
+    FROM
+        sales_reps s
+        JOIN accounts a ON a.sales_rep_id = s.id
+        JOIN orders o ON o.account_id = a.id
+        JOIN region r ON r.id = s.region_id
+    GROUP BY
+        s.name, r.name
+)
+SELECT
+    sales_rep_name,
+    region_name,
+    total_amt
+FROM
+    SalesData
+WHERE
+    channel_rank = 1;
