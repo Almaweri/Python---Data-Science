@@ -1054,5 +1054,5 @@ JOIN (
         JOIN orders o ON o.account_id = a.id
         JOIN region r ON r.id = s.region_id
         GROUP BY 1,2
-        ORDER BY 3 DESC) t3
+        ORDER BY 3 DESC) t3 
 ON  t3.region_name = t2.region_name AND t3.total_amt = t2.total_amt;
