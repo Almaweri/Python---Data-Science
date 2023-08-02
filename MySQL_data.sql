@@ -1032,3 +1032,27 @@ ON t1.sales_rep_id = t2.sales_rep_id
 
 GROUP BY t2.Region_Name, t2.Sales_Reps_Name
 ORDER BY largest_amt DESC;
+
+
+
+-- Updated the above query to get the the top channel used by each account to market products and 
+-- How often was that same channel used
+SELECT t3.sales_rep_name, t3.region_name, t3.total_amt
+FROM (SELECT region_name, MAX(total_amt) total_amt
+        FROM(
+             SELECT  s.name AS sales_rep_name, r.name AS region_name, SUM(o.total_amt_usd) total_amt
+             FROM sales_reps s
+             JOIN accounts a ON a.sales_rep_id = s.id
+             JOIN orders o ON o.account_id = a.id
+             JOIN region r ON r.id = s.region_id
+             GROUP BY 1,2) t1
+         GROUP BY 1) t2
+JOIN (
+        SELECT  s.name AS sales_rep_name, r.name AS region_name, SUM(o.total_amt_usd) total_amt
+        FROM sales_reps s
+        JOIN accounts a ON a.sales_rep_id = s.id
+        JOIN orders o ON o.account_id = a.id
+        JOIN region r ON r.id = s.region_id
+        GROUP BY 1,2
+        ORDER BY 3 DESC) t3
+ON  t3.region_name = t2.region_name AND t3.total_amt = t2.total_amt;
