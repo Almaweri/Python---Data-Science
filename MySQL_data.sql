@@ -1110,3 +1110,28 @@ JOIN (
      
 ON t3.region_name = t2.region_name AND t3.total_amt = t2.total_amt
 Order by total_amt DESC;
+
+--Q2: For the region with the largest (sum) of sales total_amt_usd, how many total (count) orders were placed?
+-- My answer below utilizes two subqueries, one to find the region with the highest total_amt_usd and another to find the region with the highest count of orders (total_orders).
+-- Then, it joins these two subqueries on the region name and groups the results by region name.
+
+SELECT t1.region_name, MAX(t2.total_orders) as total_of_orders
+FROM( SELECT r.name as region_name, SUM(o.total_amt_usd) total_amt_usd -- gets all regions with high total_amt_used
+        FROM region r
+        JOIN sales_reps s on r.id = s.region_id
+        JOIN accounts a ON a.sales_rep_id = s.id
+        JOIN orders o ON a.id = o.account_id
+        GROUP BY 1
+        order by total_amt_usd DESC) t1
+JOIN(SELECT r.name as region_name, COUNT(o.total) as total_orders
+        FROM region r
+                JOIN sales_reps s on r.id = s.region_id
+                JOIN accounts a ON a.sales_rep_id = s.id
+                JOIN orders o ON a.id = o.account_id
+                GROUP BY 1
+                order by total_orders DESC
+                Limit 1) t2
+ON t1.region_name = t2.region_name
+GROUP by 1;
+
+-- The answer using Having and a subquery
