@@ -1135,3 +1135,24 @@ ON t1.region_name = t2.region_name
 GROUP by 1;
 
 -- The answer using Having and a subquery
+SELECT t1.region_name, MAX(t1.total_amt_usd) max_used, t2.total_orders
+FROM (SELECT r.name as region_name, SUM(o.total_amt_usd) total_amt_usd
+        FROM region r
+        JOIN sales_reps s on r.id = s.region_id
+        JOIN accounts a ON a.sales_rep_id = s.id
+        JOIN orders o ON a.id = o.account_id
+        HAVING (
+                SELECT r.name as region_name, COUNT(o.total) total_orders
+                FROM region r
+                JOIN sales_reps s on r.id = s.region_id
+                JOIN accounts a ON a.sales_rep_id = s.id
+                JOIN orders o ON a.id = o.account_id
+                GROUP BY 1
+                order by total_orders DESC
+                Limit 1) t2
+ON t1.region_name = t2.region_name
+
+GROUP BY 1
+order by total_amt_usd DESC) t1
+group by 1;
+
