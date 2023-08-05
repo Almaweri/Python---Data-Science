@@ -1156,3 +1156,17 @@ GROUP BY 1
 order by total_amt_usd DESC) t1
 group by 1;
 
+
+-- Q3: How many accounts had more total purchases than the account name which has bought the most standard_qty paper throughout their lifetime as a customer?
+
+SELECT a.id as acct_id, a.name as acc_name, o.account_id as ord_acc_id, SUM(o.gloss_amt_usd) as total_purchases
+FROM orders o
+JOIN accounts a on a.id = o.account_id
+GROUP BY 1,2
+HAVING SUM(o.gloss_amt_usd) = (
+    SELECT MAX(sub.total_purchases) 
+    FROM (SELECT a.id as acct_id, o.account_id as ord_acc_id, SUM(o.gloss_amt_usd) as total_purchases
+          FROM orders o
+          JOIN accounts a on a.id = o.account_id
+          GROUP BY 1,2) sub;
+
