@@ -1170,3 +1170,35 @@ HAVING SUM(o.gloss_amt_usd) = (
           JOIN accounts a on a.id = o.account_id
           GROUP BY 1,2) sub;
 
+
+-- Final Answer is as follows:
+
+SELECT COUNT(*) as num_accounts
+FROM (
+    SELECT a.id as acct_id, a.name as acc_name, SUM(o.total) as total_sum
+    FROM orders o
+    JOIN accounts a ON a.id = o.account_id
+    GROUP BY a.id, a.name
+    HAVING SUM(o.total) > (
+        SELECT SUM(o2.total) as max_total
+        FROM orders o2
+        JOIN accounts a2 ON a2.id = o2.account_id
+        WHERE a2.id = (
+            SELECT a3.id
+            FROM accounts a3
+            JOIN orders o3 ON a3.id = o3.account_id
+            GROUP BY a3.id
+            ORDER BY SUM(o3.standard_qty) DESC
+            LIMIT 1
+        )
+    )
+) accounts_with_more_purchases;
+
+
+--Here's how this query works:
+--The innermost subquery identifies the account ID that has purchased the most standard_qty paper by grouping orders by account and ordering the results in descending order of standard_qty purchases. The LIMIT 1 ensures you only get the top account.
+--The middle subquery calculates the total purchases made by the account identified in the previous step.
+--The outer subquery retrieves the account IDs, names, and total sums of purchases for all accounts.
+--The HAVING clause filters the accounts to include only those with total purchases greater than the maximum total purchases from step 2.
+--Finally, the outermost query counts the number of accounts that meet the criteria.
+--Please note that this query assumes each account has a unique ID, and you might need to adjust the table and column names based on your database schema.
