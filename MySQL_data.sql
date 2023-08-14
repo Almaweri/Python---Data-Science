@@ -1202,3 +1202,33 @@ FROM (
 --The HAVING clause filters the accounts to include only those with total purchases greater than the maximum total purchases from step 2.
 --Finally, the outermost query counts the number of accounts that meet the criteria.
 --Please note that this query assumes each account has a unique ID, and you might need to adjust the table and column names based on your database schema.
+
+-- For the customer that spent the most (in total over their lifetime as a customer) total_amt_usd, how many web_events did they have for each channel?
+SELECT T1.ACCT_ID AS t1_id,
+       T1.ACCT_NAME AS t1_name,
+       T2.ACCT_ID AS t2_id,
+       T2.TOTAL_SUM AS totalSum,
+       T1.CHANNEL_NAME,
+       T1.COUNT_OF_EVENT
+
+FROM (
+    SELECT A.ID AS ACCT_ID,
+           A.NAME AS ACCT_NAME,
+           W.CHANNEL AS CHANNEL_NAME,
+           COUNT(W.OCCURRED_AT) AS COUNT_OF_EVENT
+    FROM WEB_EVENTS W
+    JOIN ACCOUNTS A ON A.ID = W.ACCOUNT_ID
+    GROUP BY ACCT_ID, ACCT_NAME, CHANNEL_NAME
+) T1
+
+JOIN (
+    SELECT A.ID AS ACCT_ID,
+           SUM(O.TOTAL_AMT_USD) AS TOTAL_SUM
+    FROM ACCOUNTS A
+    JOIN ORDERS O ON A.ID = O.ACCOUNT_ID
+    GROUP BY ACCT_ID
+    ORDER BY TOTAL_SUM DESC
+    LIMIT 1
+) T2 ON T1.ACCT_ID = T2.ACCT_ID
+
+ORDER BY T2.TOTAL_SUM DESC, T1.COUNT_OF_EVENT DESC;
