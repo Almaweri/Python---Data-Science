@@ -1232,3 +1232,19 @@ JOIN (
 ) T2 ON T1.ACCT_ID = T2.ACCT_ID
 
 ORDER BY T2.TOTAL_SUM DESC, T1.COUNT_OF_EVENT DESC;
+
+
+
+-- What is the lifetime average amount spent in terms of total_amt_usd for the top 10 total spending accounts?
+SELECT a.id as acct_id, a.name as acct_name, AVG(o.total_amt_usd) as lifetime_avg_amount_spent
+FROM accounts a
+JOIN orders o ON a.id = o.account_id
+WHERE a.id IN (
+    SELECT account_id
+    FROM orders
+    GROUP BY account_id
+    ORDER BY SUM(total_amt_usd) DESC
+    LIMIT 10
+)
+GROUP BY acct_id, acct_name
+ORDER BY lifetime_avg_amount_spent DESC;
