@@ -1260,4 +1260,16 @@ FROM (SELECT o.account_id, AVG(o.total_amt_usd) avg_amt
     HAVING AVG(o.total_amt_usd) > (SELECT AVG(o.total_amt_usd) avg_all
 FROM orders o)) temp_table;
 
+-- QUESTION: Find the average number of events for each channel per day.
 
+
+
+WITH events AS(
+SELECT DATE_TRUNC('day', w.occurred_at) as day, w.channel, count(*) as events
+	FROM web_events w
+	GROUP BY 1,2
+)
+SELECT channel, AVG(events) as average_events
+FROM events
+GROUP BY channel
+ORDER BY 2 desc;
