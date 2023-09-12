@@ -1360,3 +1360,11 @@ RIGHT(student_information, 6) AS salary
 -- Substr: Extracts a substring from a string (starting at any position)
 SUBSTR(string, start, length)
 SUBSTR(student_information, 11, 1) AS gender
+
+
+--In the accounts table, there is a column holding the website for each company. The last three digits specify what type of web address they are using. A list of extensions (and pricing) is provided iwantmyname.com. Pull these extensions and provide how many of each website type exist in the accounts table.
+ SELECT  RIGHT(a.website, 3) as web_add_type, COUNT(*) as all_acc
+ FROM accounts a
+ group by web_add_type
+ order by all_acc
+ 
