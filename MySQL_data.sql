@@ -1377,3 +1377,16 @@ SUBSTR(student_information, 11, 1) AS gender
  
  SELECT LEFT(a."name", 1) as first_letter
  FROM accounts a;
+
+  
+ -- Use the accounts table and a CASE statement to create two groups: one group of company names
+ -- that start with a number and the second group of those company names that start with a letter.
+ -- What proportion of company names start with a letter?
+ 
+SELECT CASE
+	WHEN LEFT(a.name,1) BETWEEN '0' AND '9' THEN 'Starts with numbers'
+	ELSE 'Starts with letter'
+	END AS group_name,
+	COUNT(*) as counts
+	FROM accounts a
+	GROUP BY group_name
