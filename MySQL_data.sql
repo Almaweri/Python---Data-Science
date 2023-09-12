@@ -1372,11 +1372,10 @@ SUBSTR(student_information, 11, 1) AS gender
  -- matters. Use the accounts table to pull the first letter of each company name to see the distribution
  -- of company names that begin with each letter (or number). 
  
- SELECT SUBSTRING(a.website, 5,1) as first_letter 
- FROM accounts a;
- 
- SELECT LEFT(a."name", 1) as first_letter
- FROM accounts a;
+SELECT SUBSTRING(a.website, 5,1) as first_letter, COUNT(*) all_letters
+ FROM accounts a
+ GROUP BY first_letter
+ ORDER BY 2 DESC
 
   
  -- Use the accounts table and a CASE statement to create two groups: one group of company names
