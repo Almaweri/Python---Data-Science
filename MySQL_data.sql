@@ -1368,3 +1368,12 @@ SUBSTR(student_information, 11, 1) AS gender
  group by web_add_type
  order by all_acc
  
+ -- There is much debate about how much the name (or even the first letter of a company name)
+ -- matters. Use the accounts table to pull the first letter of each company name to see the distribution
+ -- of company names that begin with each letter (or number). 
+ 
+ SELECT SUBSTRING(a.website, 5,1) as first_letter 
+ FROM accounts a;
+ 
+ SELECT LEFT(a."name", 1) as first_letter
+ FROM accounts a;
