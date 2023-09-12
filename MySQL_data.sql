@@ -1390,3 +1390,21 @@ SELECT CASE
 	COUNT(*) as counts
 	FROM accounts a
 	GROUP BY group_name
+
+
+    -- to get the proportion of the company name
+    SELECT
+  group_name,
+  COUNT(*) AS count,
+  (COUNT(*) * 100.0 / SUM(COUNT(*)) OVER ()) AS proportion
+FROM (
+  SELECT
+    CASE
+      WHEN LEFT(company_name, 1) BETWEEN '0' AND '9' THEN 'Starts with Number'
+      ELSE 'Starts with Letter'
+    END AS group_name
+  FROM
+    accounts
+) AS grouped_data
+GROUP BY
+  group_name;
