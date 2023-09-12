@@ -1345,3 +1345,12 @@ FROM department_db x
       )y
 WHERE x.dept_id = y.dept_id
 ORDER BY dept_name;
+
+
+
+
+-- SQL Data Cleaning - Syntax
+-- Left: Extracts a # of characters from a string starting from the left
+-- Right: Extracts a # of characters from a string starting from the right
+LEFT(student_information, 8) AS student_id
+RIGHT(student_information, 6) AS salary
