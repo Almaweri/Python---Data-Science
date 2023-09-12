@@ -1354,3 +1354,9 @@ ORDER BY dept_name;
 -- Right: Extracts a # of characters from a string starting from the right
 LEFT(student_information, 8) AS student_id
 RIGHT(student_information, 6) AS salary
+
+
+
+-- Substr: Extracts a substring from a string (starting at any position)
+SUBSTR(string, start, length)
+SUBSTR(student_information, 11, 1) AS gender
