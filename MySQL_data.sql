@@ -1430,4 +1430,9 @@ SELECT * from region;
 
  SELECT CONCAT(s.id, '_', r.name) as EMP_ID_REGION, s.name
  FROM sales_reps s
- JOIN region r on s.region_id = r.id
+ JOIN region r on s.region_id = r.id;
+
+
+-- From the accounts table, display the name of the client, the coordinate as concatenated (latitude, longitude), email id of the primary point of contact as
+ SELECT ac.name as name, CONCAT(ac.lat, ', ', ac.long) as coordinate, ac.id as id
+ FROM accounts ac
