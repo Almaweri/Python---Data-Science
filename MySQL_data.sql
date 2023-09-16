@@ -1417,3 +1417,17 @@ FROM (SELECT name, CASE WHEN LEFT(UPPER(name), 1) IN ('A','E','I','O','U')
              CASE WHEN LEFT(UPPER(name), 1) IN ('A','E','I','O','U') 
                           THEN 0 ELSE 1 END AS other
             FROM accounts) t1;
+
+
+ -- Suppose the company wants to assess the performance of all the sales representatives. 
+ -- Each sales representative is assigned to work in a particular region. 
+ -- To make it easier to understand for the HR team, display the concatenated
+ -- sales_reps.id, ‘_’ (underscore), and region.name as EMP_ID_REGION for each sales 
+ -- representative.
+
+SELECT * from sales_reps;
+SELECT * from region;
+
+ SELECT CONCAT(s.id, '_', r.name) as EMP_ID_REGION, s.name
+ FROM sales_reps s
+ JOIN region r on s.region_id = r.id
