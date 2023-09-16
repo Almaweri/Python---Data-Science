@@ -1435,4 +1435,17 @@ SELECT * from region;
 
 -- From the accounts table, display the name of the client, the coordinate as concatenated (latitude, longitude), email id of the primary point of contact as
  SELECT ac.name as name, CONCAT(ac.lat, ', ', ac.long) as coordinate, ac.id as id
- FROM accounts ac
+ FROM accounts ac;
+
+
+
+
+-- From the web_events table, display the concatenated value of account_id, '_' , channel, '_', count of web events of the particular channel
+WITH T1 AS (
+ SELECT ACCOUNT_ID, CHANNEL, COUNT(*) 
+ FROM WEB_EVENTS
+ GROUP BY ACCOUNT_ID, CHANNEL
+ ORDER BY ACCOUNT_ID
+)
+SELECT CONCAT(T1.ACCOUNT_ID, '_', T1.CHANNEL, '_', COUNT)
+FROM T1;
