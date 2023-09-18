@@ -1461,3 +1461,26 @@ FROM sf_crime_data;
 -- 5. Once you have created a column in the correct format, use either CAST or :: to convert this to a date.
 SELECT date orig_date, (SUBSTR(date, 7, 4) || '-' || LEFT(date, 2) || '-' || SUBSTR(date, 4, 2)) new_date
 FROM sf_crime_data;
+
+-- another way
+
+SELECT
+    incidnt_num,
+    category,
+    descript,
+    day_of_week,
+    CONCAT(
+		-- SUBSTR(date, 7, 4), '-', SUBSTR(date, 1, 2), '-', SUBSTR(date, 4, 2)
+        SUBSTR(date, 7, 4), '-',  -- Year
+        SUBSTR(date, 1, 2), '-',  -- Month
+        SUBSTR(date, 4, 2)       -- Day
+    ) AS sql_date,
+    time,
+    pd_district,
+    resolution,
+    address,
+    lon,
+    lat,
+    location,
+    id
+FROM sf_crime_data;
