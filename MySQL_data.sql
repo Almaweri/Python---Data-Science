@@ -1456,3 +1456,8 @@ FROM T1;
 
 SELECT date orig_date, (SUBSTR(date, 7, 4) || '-' || LEFT(date, 2) || '-' || SUBSTR(date, 4, 2)) new_date
 FROM sf_crime_data;
+
+
+-- 5. Once you have created a column in the correct format, use either CAST or :: to convert this to a date.
+SELECT date orig_date, (SUBSTR(date, 7, 4) || '-' || LEFT(date, 2) || '-' || SUBSTR(date, 4, 2)) new_date
+FROM sf_crime_data;
