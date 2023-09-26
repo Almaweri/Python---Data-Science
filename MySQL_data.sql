@@ -1615,3 +1615,17 @@ WITH t1 AS (
 )
 SELECT TRIM(LOWER(CONCAT(t1.first_name, '.', t1.last_name, '@', t1.com_name, '.com'))) AS email
 FROM t1;
+
+
+
+-- Window Functions 1
+
+--Creating a Running Total Using Window Functions
+-- Create a running total of standard_amt_usd (in the orders table) over order time with no date truncation. Your final table should have two columns: one with the amount being added for each new row, and a second with the running total.
+
+SELECT * FROM orders
+
+SELECT
+  standard_amt_usd,
+  SUM(standard_amt_usd) OVER (ORDER BY occurred_at) AS running_total
+FROM orders;
