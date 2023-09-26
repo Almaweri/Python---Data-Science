@@ -1484,3 +1484,134 @@ SELECT
     location,
     id
 FROM sf_crime_data;
+
+
+-- Advanced Cleaning Functions
+
+
+
+-- Advanced Cleaning Functions
+
+SELECT * FROM accounts
+
+SELECT DISTINCT(r.name) as name1 from region r;
+
+SELECT COALESCE(name, CAST(id as VARCHAR)) AS final_region_name
+FROM region;
+
+
+SELECT COALESCE(r.name, r.id) as final_region
+FROM region r
+
+SELECT STRPOS(r.name,'s') AS position1, r.name as name
+FROM region r
+limit 1
+
+
+SELECT POSITION('com' IN a.website), a.website
+FROM accounts a
+LIMIT 10;
+
+SELECT * FROM accounts
+
+WITH space as(SELECT POSITION(' ' IN a.primary_poc) as space_pos, a.primary_poc as names
+FROM accounts a) 
+SELECT LEFT(space.space_pos)
+
+
+WITH space AS (
+    SELECT 
+        POSITION(' ' IN a.primary_poc) AS space_pos, 
+        a.primary_poc AS names
+    FROM accounts a
+) 
+SELECT LEFT(space.names, space.space_pos - 1) AS First_Name,
+RIGHT(space.names, space.space_pos + 1) AS Last_Name
+FROM space;
+
+-- Use the accounts table to create first and last name columns that hold the first and last names for the primary_poc.
+
+
+WITH space AS (
+    SELECT 
+        POSITION(' ' IN a.primary_poc) AS space_pos, 
+        a.primary_poc AS names
+    FROM accounts a
+) 
+SELECT 
+    LEFT(space.names, space.space_pos - 1) AS First_Name,
+    RIGHT(space.names, LENGTH(space.names) - space.space_pos) AS Last_Name
+FROM space;
+
+-- From Course
+SELECT LEFT(primary_poc, STRPOS(primary_poc, ' ') -1 ) first_name, 
+RIGHT(primary_poc, LENGTH(primary_poc) - STRPOS(primary_poc, ' ')) last_name
+FROM accounts;
+---
+
+-2 -- Now see if you can do the same thing for every rep name in the sales_reps table. Again provide first and last name columns.
+
+SELECT * FROM sales_reps
+
+
+
+
+WITH t1 AS (SELECT
+	POSITION(' ' IN s.name ) as space, s.name as full_name
+FROM sales_reps s)
+SELECT LEFT(t1.full_name, t1.space -1) as frist_name, 
+RIGHT(t1.full_name, LENGTH(t1.full_name) - t1.space) as last_name
+From t1
+
+SELECT LEFT(primary_poc, STRPOS(primary_poc, ' ') -1 ) first_name
+--RIGHT(primary_poc, LENGTH(primary_poc) - STRPOS(primary_poc, ' ')) last_name
+FROM accounts;
+
+SELECT * FROM accounts
+
+
+-- Quiz: CONCAT & STRPOS - Bringing it together
+-- 1- Each company in the accounts table wants to create an email address for each primary_poc. The email address should be the first name of the primary_poc . last name primary_poc @ company name .com.
+
+
+WITH t1 as(
+SELECT LEFT(a.primary_poc, STRPOS(a.primary_poc,' ') -1) as first_name,
+RIGHT(a.primary_poc, LENGTH(a.primary_poc) - STRPOS(a.primary_poc, ' ')) as last_name,
+	a.name as com_name
+FROM accounts a)
+SELECT CONCAT(t1.first_name || '.' || t1.last_name ||'@' || t1.com_name || '.com') as email
+FROM t1
+
+
+WITH t1 AS (
+    SELECT 
+        TRIM(LOWER(LEFT(a.primary_poc, STRPOS(a.primary_poc,' ') - 1))) AS first_name,
+        TRIM(LOWER(RIGHT(a.primary_poc, LENGTH(a.primary_poc) - STRPOS(a.primary_poc, ' ')))) AS last_name,
+        TRIM(LOWER(a.name)) AS com_name
+    FROM accounts a
+)
+SELECT 
+    CONCAT(t1.first_name, '.', t1.last_name, '@', t1.com_name, '.com') AS email
+FROM t1;
+
+
+WITH t1 AS (
+  SELECT LEFT(a.primary_poc, STRPOS(a.primary_poc, ' ') - 1) AS first_name,
+         RIGHT(a.primary_poc, LENGTH(a.primary_poc) - STRPOS(a.primary_poc, ' ')) AS last_name,
+         REPLACE(a.name, ' ', '') AS com_name
+  FROM accounts a
+  WHERE a.primary_poc IS NOT NULL
+)
+SELECT TRIM(LOWER(CONCAT(t1.first_name, '.', t1.last_name, '@', t1.com_name, '.com'))) AS email
+FROM t1;
+
+-- 2- You may have noticed that in the previous solution some of the company names include spaces, which will certainly not work in an email address. See if you can create an email address that will work by removing all of the spaces in the account name, but otherwise, your solution should be just as in question 1. Some helpful documentation is here.
+WITH t1 AS (
+  SELECT LEFT(a.primary_poc, STRPOS(a.primary_poc, ' ') - 1) AS first_name,
+         RIGHT(a.primary_poc, LENGTH(a.primary_poc) - STRPOS(a.primary_poc, ' ')) AS last_name,
+         REPLACE(a.name, ' ', '') AS com_name
+  FROM accounts a
+  WHERE a.primary_poc IS NOT NULL
+)
+SELECT TRIM(LOWER(CONCAT(t1.first_name, '.', t1.last_name, '@', t1.com_name, '.com'))) AS email
+FROM t1;
