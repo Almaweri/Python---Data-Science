@@ -1633,4 +1633,8 @@ FROM orders;
 
 -- Windows function 
 SELECT id, account_id, total, SUM(total) OVER (order by orders.account_id) as order_total
+From orders;
+
+-- PARTITION BY
+SELECT id, account_id, total, SUM(total) OVER (PARTITION by orders.account_id) as order_total
 From orders
