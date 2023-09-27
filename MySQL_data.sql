@@ -1629,3 +1629,8 @@ SELECT
   standard_amt_usd,
   SUM(standard_amt_usd) OVER (ORDER BY occurred_at) AS running_total
 FROM orders;
+
+
+-- Windows function 
+SELECT id, account_id, total, SUM(total) OVER (order by orders.account_id) as order_total
+From orders
