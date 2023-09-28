@@ -1638,3 +1638,11 @@ From orders;
 -- PARTITION BY
 SELECT id, account_id, total, SUM(total) OVER (PARTITION by orders.account_id) as order_total
 From orders
+
+
+-- Creating a Partitioned Running Total Using Window Functions
+-- Now, modify your query from the previous quiz to include partitions. Still create a running total of standard_amt_usd (in the orders table) over order time, but this time, date truncate occurred_at by year and partition by that same year-truncated occurred_at variable.
+-- Your final table should have three columns:
+-- 1- One with the amount being added for each row
+-- 2- One for the truncated date,
+-- 3- A final column with the running total within each year
