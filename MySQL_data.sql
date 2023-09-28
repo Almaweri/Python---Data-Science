@@ -1651,3 +1651,16 @@ SELECT standard_amt_usd,
        DATE_TRUNC('year', occurred_at) as year,
        SUM(standard_amt_usd) OVER (PARTITION BY DATE_TRUNC('year', occurred_at) ORDER BY occurred_at) AS running_total
 FROM orders;
+
+-- PARTITION BY and aggregation functions
+SELECT order_id,
+       order_total,
+       order_price,
+       SUM(order_total) OVER
+           (PARTITION BY month(order_date) ORDER BY order_date) AS running_monthly_sales,
+       COUNT(order_id) OVER
+           (PARTITION BY month(order_date) ORDER BY order_date) AS running_monthly orders,
+       AVG(order_price) OVER
+           (PARTITION BY month(order_date) ORDER BY order_date) AS average_monthly_price
+FROM  amazon_sales_db
+WHERE order_date < '2017-01-01';
