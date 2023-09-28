@@ -1637,7 +1637,7 @@ From orders;
 
 -- PARTITION BY
 SELECT id, account_id, total, SUM(total) OVER (PARTITION by orders.account_id) as order_total
-From orders
+From orders;
 
 
 -- Creating a Partitioned Running Total Using Window Functions
@@ -1646,3 +1646,8 @@ From orders
 -- 1- One with the amount being added for each row
 -- 2- One for the truncated date,
 -- 3- A final column with the running total within each year
+
+SELECT standard_amt_usd,
+       DATE_TRUNC('year', occurred_at) as year,
+       SUM(standard_amt_usd) OVER (PARTITION BY DATE_TRUNC('year', occurred_at) ORDER BY occurred_at) AS running_total
+FROM orders;
