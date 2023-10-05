@@ -1704,3 +1704,13 @@ SELECT NOW()::TEXT;
 
 -- CAST today's date to date
 SELECT NOW()::DATE;
+
+
+-- some examples of how you can use the :: operator for type casting in SQL
+SELECT 'true'::BOOLEAN; -- Casts the text 'true' to a boolean value
+SELECT TRUE::INTEGER; -- Casts true to 1
+SELECT FALSE::INTEGER; -- Casts false to 0
+SELECT 0::BOOLEAN; -- Casts the numeric 0 to false
+SELECT 1::BOOLEAN; -- Casts the numeric 1 to true
+SELECT 'A'::INTEGER; -- Casts the character 'A' to its ASCII value (65)
+SELECT NULL::DATE; -- Casts NULL to a date with a NULL value
