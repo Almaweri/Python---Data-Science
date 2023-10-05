@@ -1697,3 +1697,7 @@ FROM orders;
 
 SELECT standard_amt_usd, standard_amt_usd::INTEGER
 From orders;
+
+
+ -- Casts the current timestamp to a text representation
+SELECT NOW()::TEXT;
