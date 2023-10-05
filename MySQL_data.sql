@@ -1701,3 +1701,6 @@ From orders;
 
  -- Casts the current timestamp to a text representation
 SELECT NOW()::TEXT;
+
+-- CAST today's date to date
+SELECT NOW()::DATE;
