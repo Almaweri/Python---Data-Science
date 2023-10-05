@@ -1681,3 +1681,13 @@ WHERE order_date < '2017-01-01';
 	ORDER BY DATE_TRUNC('month', OCCURRED_AT)) AS MIN_STANDARD_QTY, MAX(STANDARD_QTY) OVER (PARTITION BY ACCOUNT_ID
 	ORDER BY DATE_TRUNC('month',OCCURRED_AT)) AS MAX_STANDARD_QTY
 	FROM ORDERS;
+
+
+  -- Casting date in 3 different ways
+
+  SELECT
+	occurred_at,
+	DATE_TRUNC('month', occurred_at) as month,
+	DATE_TRUNC('month', occurred_at)::DATE AS month,
+	EXTRACT(MONTH FROM occurred_at) AS month
+FROM orders;
