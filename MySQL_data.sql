@@ -1691,3 +1691,9 @@ WHERE order_date < '2017-01-01';
 	DATE_TRUNC('month', occurred_at)::DATE AS month,
 	EXTRACT(MONTH FROM occurred_at) AS month
 FROM orders;
+
+
+-- casting a decimal number to an integer 
+
+SELECT standard_amt_usd, standard_amt_usd::INTEGER
+From orders;
