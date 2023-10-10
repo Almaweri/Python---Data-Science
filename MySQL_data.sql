@@ -1714,3 +1714,20 @@ SELECT 0::BOOLEAN; -- Casts the numeric 0 to false
 SELECT 1::BOOLEAN; -- Casts the numeric 1 to true
 SELECT 'A'::INTEGER; -- Casts the character 'A' to its ASCII value (65)
 SELECT NULL::DATE; -- Casts NULL to a date with a NULL value
+
+
+
+-- ROW_NUMBER()
+SELECT ROW_NUMBER() OVER(ORDER BY date_time) AS rank,
+       date_time
+FROM   db;
+
+--RANK()
+SELECT RANK() OVER(ORDER BY date_time) AS rank,
+       date_time
+FROM   db;
+
+--  DENSE_RANK()
+SELECT DENSE_RANK() OVER(ORDER BY date_time) AS rank,
+       date_time
+FROM   db;
