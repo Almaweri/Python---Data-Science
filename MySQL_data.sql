@@ -1748,3 +1748,16 @@ SELECT id,
        MAX(standard_qty) OVER month_window AS max_std_qty
 FROM orders
 WINDOW month_window as (PARTITION BY account_id ORDER BY DATE_TRUNC('month',occurred_at));
+
+-- 2nd example
+
+SELECT order_id,
+       order_total,
+       order_price,
+       SUM(order_total) OVER monthly_window AS running_monthly_sales,
+       COUNT(order_id) OVER monthly_window AS running_monthly orders,
+       AVG(order_price) OVER monthly_window AS average_monthly_price
+FROM   amazon_sales_db
+WHERE  order_date < '2017-01-01'
+WINDOW monthly_window AS
+       (PARTITION BY month(order_date) ORDER BY order_date);
