@@ -1731,3 +1731,20 @@ FROM   db;
 SELECT DENSE_RANK() OVER(ORDER BY date_time) AS rank,
        date_time
 FROM   db;
+
+
+-- Advanced Functions: Aliases for Multiple Window Functions
+
+
+SELECT id,
+       account_id,
+       standard_qty,
+       DATE_TRUNC('month', occurred_at) AS month,
+       DENSE_RANK() OVER month_window AS dense_rank,
+       SUM(standard_qty) OVER month_window AS sum_std_qty,
+       COUNT(standard_qty) OVER month_window AS count_std_qty,
+       AVG(standard_qty) OVER month_window AS avg_std_qty,
+       MIN(standard_qty) OVER month_window AS min_std_qty,
+       MAX(standard_qty) OVER month_window AS max_std_qty
+FROM orders
+WINDOW month_window as (PARTITION BY account_id ORDER BY DATE_TRUNC('month',occurred_at));
